@@ -163,13 +163,17 @@ public class BinarySearchTree
 
    ---- Question 1: BFS by hand ----
       Step   Take out   Queue after adding children   Results
-      Start             [52]                          [ ]
-      1
-      2
-      3
-      4
-      5
-   Full BFS result:
+      Start             [52]                            [ ]
+      1         52      [30, 75]                        [52]
+      2         30      [75, 18, 40]                    [52, 30]
+      3         75      [18, 40, 60, 90]                [52, 30, 75]
+      4         18      [40, 60, 90]                    [52, 30, 75, 18]
+      5         40      [60, 90, 35]                    [52, 30, 75, 18, 40]
+      6         60      [90, 35, 66]                    [52, 30, 75, 18, 40, 60]
+      7         90      [35, 66]                        [52, 30, 75, 18, 40, 60, 90]
+      8         35      [66]                            [52, 30, 75, 18, 40, 60, 90, 35]
+      9         66      [ ]                             [52, 30, 75, 18, 40, 60, 90, 35]
+   Full BFS result: 52, 30, 75, 18, 40, 60, 90, 35
 
    ---- Question 2: DFS by hand ----
    Preorder:
