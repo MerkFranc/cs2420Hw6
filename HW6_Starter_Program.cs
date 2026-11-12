@@ -208,7 +208,7 @@ public class BinarySearchTree
         {
             if (values[i] <= values[i - 1])
             {
-                reutrn false;
+                return false;
             }
         }
 
