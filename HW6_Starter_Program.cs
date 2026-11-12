@@ -132,14 +132,51 @@ public class BinarySearchTree
     //       Use a queue, the same way BFS does. An empty tree has 0 leaves.
     public int CountLeaves()
     {
-        return 0;
+        if (root == null) return 0;
+
+        int count = 0;
+        var queue = new Queue<Node>();
+        queue.Enqueue(root);
+
+        while (queue.Count > 0) {
+            Node currentNode = queue.Dequeue();
+
+            // A leaf has no left or right child
+            if (currentNode.Left == null && currentNode.Right == null)
+            {
+                count ++;
+            }
+
+            if (currentNode.Left != null)
+            {
+                queue.Enqueue(currentNode.Left);
+            }
+
+            if (currentNode.Right != null)
+            {
+                queue.Enqueue(currentNode.Right);
+            }
+        }
+        return count;
     }
 
     // TODO: return the total of all values in the tree. An empty tree returns 0.
     //       Use DFS: a Traverse local function, like DFSInOrder.
     public int Sum()
     {
-        return 0;
+        int sum = 0;
+
+        void Traverse(Node? currentNode)
+        {
+            if (currentNode == null) return;
+            
+            Traverse(currentNode.Left);
+            sum += currentNode.Value;
+            Traverse(currentNode.Right);
+        }
+
+        Traverse(root);
+        return sum;
     }
 
     // TODO: return the height of the tree. Empty tree = -1. One node = 0.
@@ -147,7 +184,17 @@ public class BinarySearchTree
     //       Hint: write a local function int H(Node? n) that returns -1 when n is null.
     public int Height()
     {
-        return 0;
+        int H(Node? n)
+        {
+            if (n== null) return -1;
+
+            int leftHeight = H(n.Left);
+            int rightHeight = H(n.Right);
+
+            return 1 + Math.Max(leftHeight, rightHeight);
+        }
+
+        return H(root);
     }
 
     // TODO: return true if the tree follows the BST rule, false if not.
@@ -155,7 +202,17 @@ public class BinarySearchTree
     //       is bigger than the number before it.
     public bool IsValidBST()
     {
-        return false;
+        var values = DFSInOrder();
+
+        for (int i = 1; i < values.Count; i++)
+        {
+            if (values[i] <= values[i - 1])
+            {
+                reutrn false;
+            }
+        }
+
+        return true;
     }
 }
 
@@ -176,13 +233,13 @@ public class BinarySearchTree
    Full BFS result: 52, 30, 75, 18, 40, 60, 90, 35
 
    ---- Question 2: DFS by hand ----
-   Preorder:
-   Inorder:
-   Postorder:
+   Preorder: 52, 30, 18, 40, 35, 75, 60, 66, 90
+   Inorder: 18, 30, 35, 40, 52, 60, 66, 75, 90
+   Postorder: 18, 35, 40, 30, 66, 90, 75, 52 
 
    ---- Question 3: Pick the traversal ----
-   a)
-   b)
-   c)
-   d)
+   a) Inorder
+   b) BFS
+   c) Postorder
+   d) Preorder
 */
